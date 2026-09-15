@@ -672,6 +672,98 @@ button {
   font-size: var(--fs-small);
 }
 
+.event-card--partner {
+  grid-column: 1 / -1;
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+.event-card__partner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.event-card__partner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.event-card__partner-text h3 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  opacity: 0.8;
+}
+.event-card__partner-text > p {
+  font-size: var(--fs-body);
+  opacity: 0.8;
+  line-height: 1.2;
+}
+.event-card__partner-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.event-card__partner-logo-small {
+  font-size: 20px;
+  font-weight: 700;
+}
+.event-card__partner-logo-big {
+  font-size: clamp(48px, 12vw, 84px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-ink);
+}
+.event-card__partner-photos {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+.event-card__partner-photo {
+  position: absolute;
+  width: 324px;
+  height: 232px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.event-card__partner-photo--1 {
+  transform: rotate(4deg) translateX(-34%);
+  z-index: 3;
+  background-image: url('images/events/dafes-2.png');
+}
+.event-card__partner-photo--2 {
+  transform: rotate(-6deg) translateX(0%);
+  z-index: 2;
+  background-image: url('images/events/dafes-1.png');
+}
+.event-card__partner-photo--3 {
+  transform: rotate(1deg) translateX(34%);
+  z-index: 1;
+  background-image: url('images/events/dafes-3.png');
+}
+.event-card__partner-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  background: var(--color-card);
+  color: #000;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+.event-card__partner-cta:hover {
+  opacity: 0.85;
+}
+
 .process-band {
   background: var(--color-panel);
   border-radius: var(--radius);
@@ -712,7 +804,7 @@ button {
 }
 
 .spotlight {
-  display: none;
+  /* display: none; */
   padding-block: 60px;
 }
 .spotlight__inner {
@@ -742,16 +834,13 @@ button {
   visibility: visible;
 }
 .spotlight__photo--1 {
-  background-image: url('images/program.png');
+  background-image: url('images/events/dafes-1.png');
 }
 .spotlight__photo--2 {
-  background-image: url('images/carousel/item1.png');
+  background-image: url('images/events/dafes-2.png');
 }
 .spotlight__photo--3 {
-  background-image: url('images/carousel/item8.png');
-}
-.spotlight__photo--4 {
-  background-image: url('images/carousel/item15.png');
+  background-image: url('images/events/dafes-3.png');
 }
 .spotlight__nav {
   position: absolute;
@@ -1031,7 +1120,10 @@ button {
   display: grid;
 }
 @media screen and (max-width: 700px) {
-  .container {
+  .round-arrow {
+    opacity: 1;
+  }
+  .current .container {
     padding-inline: 0;
     padding-left: var(--gutter);
   }
@@ -1162,6 +1254,21 @@ button {
     margin-top: 0;
     flex: 0 0 auto;
     white-space: nowrap;
+  }
+  .event-card--partner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-height: none;
+    gap: 40px;
+  }
+  .event-card__partner-info {
+    flex: 0 1 460px;
+  }
+  .event-card__partner-photos {
+    flex: 1 1 auto;
+    height: 220px;
+    max-width: none;
   }
 
   .process-band__inner {

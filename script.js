@@ -113,7 +113,13 @@ async function loadCompetitions(csvUrl) {
 }
 
 function escapeHtml(value) {
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }
   return String(value).replace(/[&<>"']/g, (c) => map[c])
 }
 
@@ -141,7 +147,9 @@ function competitionCardHtml(item) {
 async function initCurrentSection(root) {
   const track = root.querySelector('.current__track')
   if (!track) return
-  const items = await loadCompetitions(root.dataset.sheetCsv || COMPETITIONS_CSV_URL)
+  const items = await loadCompetitions(
+    root.dataset.sheetCsv || COMPETITIONS_CSV_URL
+  )
   track.innerHTML = items.map(competitionCardHtml).join('')
   setupInfiniteButtonScroll(root)
 }
