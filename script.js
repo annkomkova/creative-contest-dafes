@@ -171,9 +171,68 @@ function makeSlideCycler(root, slideSelector) {
   })
 }
 
-document
-  .querySelectorAll('.testimonial')
-  .forEach((el) => makeSlideCycler(el, '.testimonial__slide'))
+function setupHeroSlider(gallery) {
+  const testimonial = gallery.querySelector('.testimonial')
+  const slides = testimonial?.querySelectorAll('.testimonial__slide')
+  if (!testimonial || !slides || slides.length < 2) return
+
+  const rows = Array.from(gallery.querySelectorAll('.marquee')).map((row) => {
+    const track = row.querySelector('.marquee__track')
+    const loop = track ? makeLoopScroller(row, track) : null
+    const tiles = track ? Array.from(track.querySelectorAll('[data-i]')) : []
+    const count = tiles.length
+      ? Math.max(...tiles.map((tile) => Number(tile.dataset.i))) + 1
+      : 0
+    return {
+      row,
+      track,
+      loop,
+      tiles,
+      count,
+      reverse: row.classList.contains('marquee--reverse')
+    }
+  })
+
+  let index = 0
+
+  const highlight = () => {
+    rows.forEach(({ tiles, count }, rowIndex) => {
+      if (!count) return
+      const seed = index + rowIndex * 5
+      const a = seed % count
+      const b = (seed + Math.floor(count / 2)) % count
+      tiles.forEach((tile) => {
+        const n = Number(tile.dataset.i)
+        tile.classList.toggle('is-highlighted', n === a || n === b)
+      })
+    })
+  }
+
+  highlight()
+
+  testimonial.querySelectorAll('[data-dir]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const dir = Number(button.dataset.dir)
+      slides[index].classList.remove('is-active')
+      index = (index + dir + slides.length) % slides.length
+      slides[index].classList.add('is-active')
+      highlight()
+
+      rows.forEach(({ row, track, loop, reverse }) => {
+        if (!loop) return
+        const tile = track.querySelector('.marquee__item')
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 20
+        const step = tile ? tile.getBoundingClientRect().width + gap : 130
+        row.scrollBy({
+          left: (reverse ? -dir : dir) * step,
+          behavior: 'smooth'
+        })
+      })
+    })
+  })
+}
+
+document.querySelectorAll('.hero__gallery').forEach(setupHeroSlider)
 
 document
   .querySelectorAll('.spotlight__media')
