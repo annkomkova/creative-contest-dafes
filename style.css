@@ -1051,6 +1051,7 @@ button {
 }
 .contact__gallery a {
   display: block;
+  flex-shrink: 0;
   width: 140px;
   height: 197px;
 }
