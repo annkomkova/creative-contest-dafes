@@ -83,9 +83,11 @@ button {
   font-weight: 700;
   line-height: 1.1;
   color: var(--color-white);
+  margin-top: var(--gutter);
 }
 .section-title--center {
   text-align: center;
+  margin-top: var(--gutter);
 }
 
 .btn {
@@ -1019,7 +1021,7 @@ button {
 }
 
 .contact__gallery {
-  margin-top: 40px;
+  margin: 40px 0;
   display: flex;
   gap: 16px;
   overflow-x: auto;
@@ -1172,7 +1174,7 @@ button {
   }
   .spotlight__inner {
     flex-direction: row;
-    align-items: center;
+    /* align-items: center; */
   }
   .spotlight__media,
   .spotlight__text {
@@ -1212,6 +1214,9 @@ button {
 
   .stats-band__inner {
     gap: 70px;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
   .stats-band__intro {
     max-width: 670px;
@@ -1274,6 +1279,9 @@ button {
   .process-band__inner {
     flex-direction: row;
     gap: 20px;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
   }
   .process-band__intro {
     flex: 1 1 0;
