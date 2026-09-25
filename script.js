@@ -171,8 +171,9 @@ function makeSlideCycler(root, slideSelector) {
   })
 }
 
-const HERO_TOP_COUNT = 14
-const HERO_BOTTOM_COUNT = 13
+const HERO_TOP_COUNT = 36
+const HERO_BOTTOM_COUNT = 36
+const HERO_TILES_PER_STEP = 4
 
 function tileHtml(fileName) {
   return `<div class="ph-tile marquee__item" style="background-image:url('images/carousel/${fileName}.png')"></div>`
@@ -188,14 +189,51 @@ function setupHeroSlider(gallery) {
   const bottomTrack = bottomRow?.querySelector('.marquee__track')
   if (!topTrack || !bottomTrack) return
 
-  topTrack.innerHTML = Array.from(
-    { length: HERO_TOP_COUNT },
-    (_, i) => tileHtml(`top-${i + 1}`)
+  // Wait for web fonts so .hero__content has its final size before we
+  // measure how much width is left for the marquee rows — otherwise the
+  // font swap reflow shifts the layout right after we've already sized
+  // and cloned the tiles.
+  document.fonts.ready.then(() => {
+    initHeroSlider(
+      testimonial,
+      slides,
+      topRow,
+      topTrack,
+      bottomRow,
+      bottomTrack
+    )
+  })
+}
+
+function initHeroSlider(
+  testimonial,
+  slides,
+  topRow,
+  topTrack,
+  bottomRow,
+  bottomTrack
+) {
+  topTrack.innerHTML = Array.from({ length: HERO_TOP_COUNT }, (_, i) =>
+    tileHtml(`top-${i + 1}`)
   ).join('')
-  bottomTrack.innerHTML = Array.from(
-    { length: HERO_BOTTOM_COUNT },
-    (_, i) => tileHtml(`bottom-${i + 1}`)
+  bottomTrack.innerHTML = Array.from({ length: HERO_BOTTOM_COUNT }, (_, i) =>
+    tileHtml(`bottom-${i + 1}`)
   ).join('')
+
+  // Size tiles so exactly HERO_TILES_PER_STEP fit the row's real width,
+  // whatever that is once it shares space with the rest of the hero layout.
+  ;[
+    [topRow, topTrack],
+    [bottomRow, bottomTrack]
+  ].forEach(([row, track]) => {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 20
+    const rowWidth = row.getBoundingClientRect().width
+    const tileWidth =
+      (rowWidth - gap * (HERO_TILES_PER_STEP - 1)) / HERO_TILES_PER_STEP
+    track.querySelectorAll('.marquee__item').forEach((tile) => {
+      tile.style.width = `${tileWidth}px`
+    })
+  })
 
   const topLoop = makeLoopScroller(topRow, topTrack)
   const bottomLoop = makeLoopScroller(bottomRow, bottomTrack)
@@ -222,9 +260,12 @@ function setupHeroSlider(gallery) {
         ? bottomTile.getBoundingClientRect().width + bottomGap
         : 130
 
-      topRow.scrollBy({ left: dir * 3 * topTileStep, behavior: 'smooth' })
+      topRow.scrollBy({
+        left: dir * HERO_TILES_PER_STEP * topTileStep,
+        behavior: 'smooth'
+      })
       bottomRow.scrollBy({
-        left: -dir * 3 * bottomTileStep,
+        left: -dir * HERO_TILES_PER_STEP * bottomTileStep,
         behavior: 'smooth'
       })
     })

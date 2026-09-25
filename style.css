@@ -16,6 +16,9 @@ body {
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
 }
+main {
+  overflow-x: hidden;
+}
 img {
   max-width: 100%;
   display: block;
@@ -190,10 +193,7 @@ button {
 }
 
 .marquee {
-  --tile-w: 110px;
-  align-self: center;
-  width: calc(var(--tile-w) * 3.5 + 20px * 3);
-  max-width: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .marquee__track {
@@ -202,8 +202,8 @@ button {
   width: max-content;
 }
 .marquee .ph-tile {
-  width: var(--tile-w);
-  height: 155px;
+  aspect-ratio: 150 / 211;
+  flex-shrink: 0;
   border-radius: 0;
 }
 
@@ -1108,13 +1108,6 @@ button {
     flex: 1 1 0;
     min-width: 0;
   }
-  .marquee {
-    --tile-w: 150px;
-  }
-  .marquee .ph-tile {
-    height: 211px;
-  }
-
   .benefits__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
