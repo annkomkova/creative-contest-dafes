@@ -236,73 +236,85 @@ button {
   opacity: 0;
 }
 .marquee__item--1 {
-  background-image: url('images/carousel/item1.png');
+  background-image: url('images/carousel/top-1.png');
 }
 .marquee__item--2 {
-  background-image: url('images/carousel/item2.png');
+  background-image: url('images/carousel/top-2.png');
 }
 .marquee__item--3 {
-  background-image: url('images/carousel/item3.png');
+  background-image: url('images/carousel/top-3.png');
 }
 .marquee__item--4 {
-  background-image: url('images/carousel/item4.png');
+  background-image: url('images/carousel/top-4.png');
 }
 .marquee__item--5 {
-  background-image: url('images/carousel/item5.png');
+  background-image: url('images/carousel/top-5.png');
 }
 .marquee__item--6 {
-  background-image: url('images/carousel/item6.png');
+  background-image: url('images/carousel/top-6.png');
 }
 .marquee__item--7 {
-  background-image: url('images/carousel/item7.png');
+  background-image: url('images/carousel/top-7.png');
 }
 .marquee__item--8 {
-  background-image: url('images/carousel/item8.png');
+  background-image: url('images/carousel/top-8.png');
 }
 .marquee__item--9 {
-  background-image: url('images/carousel/item9.png');
+  background-image: url('images/carousel/top-9.png');
 }
 .marquee__item--10 {
-  background-image: url('images/carousel/item10.png');
+  background-image: url('images/carousel/top-10.png');
 }
 .marquee__item--11 {
-  background-image: url('images/carousel/item11.png');
+  background-image: url('images/carousel/top-11.png');
 }
 .marquee__item--12 {
-  background-image: url('images/carousel/item12.png');
+  background-image: url('images/carousel/top-12.png');
 }
 .marquee__item--13 {
-  background-image: url('images/carousel/item13.png');
+  background-image: url('images/carousel/top-13.png');
 }
 .marquee__item--14 {
-  background-image: url('images/carousel/item14.png');
+  background-image: url('images/carousel/top-14.png');
 }
 .marquee__item--15 {
-  background-image: url('images/carousel/item15.png');
+  background-image: url('images/carousel/bottom-1.png');
 }
 .marquee__item--16 {
-  background-image: url('images/carousel/item16.png');
+  background-image: url('images/carousel/bottom-2.png');
 }
 .marquee__item--17 {
-  background-image: url('images/carousel/item17.png');
+  background-image: url('images/carousel/bottom-3.png');
 }
 .marquee__item--18 {
-  background-image: url('images/carousel/item18.png');
+  background-image: url('images/carousel/bottom-4.png');
 }
 .marquee__item--19 {
-  background-image: url('images/carousel/item19.png');
+  background-image: url('images/carousel/bottom-5.png');
 }
 .marquee__item--20 {
-  background-image: url('images/carousel/item20.png');
+  background-image: url('images/carousel/bottom-6.png');
 }
 .marquee__item--21 {
-  background-image: url('images/carousel/item21.png');
+  background-image: url('images/carousel/bottom-7.png');
 }
 .marquee__item--22 {
-  background-image: url('images/carousel/item22.png');
+  background-image: url('images/carousel/bottom-8.png');
 }
 .marquee__item--23 {
-  background-image: url('images/carousel/item23.png');
+  background-image: url('images/carousel/bottom-9.png');
+}
+.marquee__item--24 {
+  background-image: url('images/carousel/bottom-10.png');
+}
+.marquee__item--25 {
+  background-image: url('images/carousel/bottom-11.png');
+}
+.marquee__item--26 {
+  background-image: url('images/carousel/bottom-12.png');
+}
+.marquee__item--27 {
+  background-image: url('images/carousel/bottom-13.png');
 }
 
 .testimonial {

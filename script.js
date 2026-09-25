@@ -203,12 +203,12 @@ function setupHeroSlider(gallery) {
       const b = (seed + Math.floor(count / 2)) % count
       tiles.forEach((tile) => {
         const n = Number(tile.dataset.i)
-        tile.classList.toggle('is-highlighted', n === a || n === b)
+        // tile.classList.toggle('is-highlighted', n === a || n === b)
       })
     })
   }
 
-  highlight()
+  // highlight()
 
   testimonial.querySelectorAll('[data-dir]').forEach((button) => {
     button.addEventListener('click', () => {
