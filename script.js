@@ -171,44 +171,37 @@ function makeSlideCycler(root, slideSelector) {
   })
 }
 
+const HERO_TOP_COUNT = 14
+const HERO_BOTTOM_COUNT = 13
+
+function tileHtml(fileName) {
+  return `<div class="ph-tile marquee__item" style="background-image:url('images/carousel/${fileName}.png')"></div>`
+}
+
 function setupHeroSlider(gallery) {
   const testimonial = gallery.querySelector('.testimonial')
   const slides = testimonial?.querySelectorAll('.testimonial__slide')
   if (!testimonial || !slides || slides.length < 2) return
 
-  const rows = Array.from(gallery.querySelectorAll('.marquee')).map((row) => {
-    const track = row.querySelector('.marquee__track')
-    const loop = track ? makeLoopScroller(row, track) : null
-    const tiles = track ? Array.from(track.querySelectorAll('[data-i]')) : []
-    const count = tiles.length
-      ? Math.max(...tiles.map((tile) => Number(tile.dataset.i))) + 1
-      : 0
-    return {
-      row,
-      track,
-      loop,
-      tiles,
-      count,
-      reverse: row.classList.contains('marquee--reverse')
-    }
-  })
+  const [topRow, bottomRow] = Array.from(gallery.querySelectorAll('.marquee'))
+  const topTrack = topRow?.querySelector('.marquee__track')
+  const bottomTrack = bottomRow?.querySelector('.marquee__track')
+  if (!topTrack || !bottomTrack) return
+
+  topTrack.innerHTML = Array.from(
+    { length: HERO_TOP_COUNT },
+    (_, i) => tileHtml(`top-${i + 1}`)
+  ).join('')
+  bottomTrack.innerHTML = Array.from(
+    { length: HERO_BOTTOM_COUNT },
+    (_, i) => tileHtml(`bottom-${i + 1}`)
+  ).join('')
+
+  const topLoop = makeLoopScroller(topRow, topTrack)
+  const bottomLoop = makeLoopScroller(bottomRow, bottomTrack)
+  if (!topLoop || !bottomLoop) return
 
   let index = 0
-
-  const highlight = () => {
-    rows.forEach(({ tiles, count }, rowIndex) => {
-      if (!count) return
-      const seed = index + rowIndex * 5
-      const a = seed % count
-      const b = (seed + Math.floor(count / 2)) % count
-      tiles.forEach((tile) => {
-        const n = Number(tile.dataset.i)
-        // tile.classList.toggle('is-highlighted', n === a || n === b)
-      })
-    })
-  }
-
-  // highlight()
 
   testimonial.querySelectorAll('[data-dir]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -216,17 +209,23 @@ function setupHeroSlider(gallery) {
       slides[index].classList.remove('is-active')
       index = (index + dir + slides.length) % slides.length
       slides[index].classList.add('is-active')
-      highlight()
 
-      rows.forEach(({ row, track, loop, reverse }) => {
-        if (!loop) return
-        const tile = track.querySelector('.marquee__item')
-        const gap = parseFloat(getComputedStyle(track).columnGap) || 20
-        const step = tile ? tile.getBoundingClientRect().width + gap : 130
-        row.scrollBy({
-          left: (reverse ? -dir : dir) * step,
-          behavior: 'smooth'
-        })
+      const topTile = topTrack.querySelector('.marquee__item')
+      const topGap = parseFloat(getComputedStyle(topTrack).columnGap) || 20
+      const topTileStep = topTile
+        ? topTile.getBoundingClientRect().width + topGap
+        : 130
+      const bottomTile = bottomTrack.querySelector('.marquee__item')
+      const bottomGap =
+        parseFloat(getComputedStyle(bottomTrack).columnGap) || 20
+      const bottomTileStep = bottomTile
+        ? bottomTile.getBoundingClientRect().width + bottomGap
+        : 130
+
+      topRow.scrollBy({ left: dir * 3 * topTileStep, behavior: 'smooth' })
+      bottomRow.scrollBy({
+        left: -dir * 3 * bottomTileStep,
+        behavior: 'smooth'
       })
     })
   })
